@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    const numero=parseInt(prompt("Ingrese el numero"));
+    const numerosAEvaluar=[3,5,7];
+    let cadena1=new String (numero.toString());
+    let arreglo=cadena1.split('') ;
+    let resultado='';
+    
+    for (let num in numerosAEvaluar){
+
+       let residuo=numero % numerosAEvaluar[num];
+ 
+       if(residuo===0){
+   
+        switch(numerosAEvaluar[num]){
+            case 3: 
+                resultado+='Foo';
+                break;
+            case 5:   
+                resultado+='Bar'; 
+                break;
+            case 7:   
+                resultado+='Quix'; 
+                break;
+        }
+            
+    }   
+} 
+
+    for (let char in arreglo){
+      for (let num in numerosAEvaluar)   
+            if(parseInt(arreglo[char])===numerosAEvaluar[num]){
+                switch(numerosAEvaluar[num]){
+                    case 3: 
+                        resultado+='Foo';
+                        break;
+                    case 5:   
+                        resultado+='Bar';
+                        break;
+                    case 7:   
+                        resultado+='Quix'; 
+                        break;
+            }
+        }    
+    }
+    
+      
+    alert(resultado);
+
+
+
+
+    </script>
+</body>
+</html>
