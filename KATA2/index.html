@@ -17,6 +17,7 @@ let numeroArabe=0;
 let arreglo= new Array;
 let mensajeValidacion="ok";
 let longitud=0;
+
 function convertirArabes(numRomano){
  
     arreglo=numRomano.split('');
@@ -51,17 +52,58 @@ function validarRomanos(numRomano){
     for(let char in arreglo){
   
         let indicePosterior2= parseInt(char) +1;
-     //   alert(valoresRomanos[arreglo[indicePosterior2]]);
         let validarI=new Array();
+        let validarX=new Array();
+        let validarC=new Array();
         validarI=['V','X'];
+        validarX=['L','C'];
+        validarC=['D','M'];
+
         if (indicePosterior2 < longitud){
-       //     alert(validarI.indexOf(arreglo[indicePosterior2]) + ' ' +arreglo[indicePosterior2]  );
-  //     alert(!((validarI.indexOf(arreglo[indicePosterior2]))>=0));
-               if(arreglo[char]==='I'&& (!((validarI.indexOf(arreglo[indicePosterior2]))>=0))){
+  //Valido I
+            if(arreglo[char]==='I'&& (!((validarI.indexOf(arreglo[indicePosterior2]))>=0))){
                 mensajeValidacion='I solo puede preceder a V o X, el numero romano proporcionado no es valido'
-                return mensajeValidacion;
+            return mensajeValidacion;
+            }
+  //Valido X            
+            if(arreglo[char]==='X'&& (!((validarX.indexOf(arreglo[indicePosterior2]))>=0))){
+                mensajeValidacion='X solo puede preceder a L o C, el numero romano proporcionado no es valido'
+            return mensajeValidacion;
+            }
+  //Valido C            
+  if(arreglo[char]==='C'&& (!((validarC.indexOf(arreglo[indicePosterior2]))>=0))){
+                mensajeValidacion='C solo puede preceder a D o M, el numero romano proporcionado no es valido'
+            return mensajeValidacion;
             }
         }
+//Reviso que I,X,C,M no se repitan mas de tres veces
+let charMap={};
+// let arregloContador=new Array( );
+// arregloContador=str.split('')
+let lon=arreglo.length;
+alert('lon'+ lon);
+ for (let i=0; i<lon;i++){  
+    
+   
+        if (charMap.hasOwnProperty(arreglo[i])){
+
+                charMap[arreglo[i]]++;
+
+        }
+        else {
+            charMap[arreglo[i]]=1;
+        
+        }
+   
+    }
+   // alert(Object(charMap).keys);
+
+
+
+//Reviso que I,X,C,M no se repitan mas de tres veces
+
+
+        
     }
 
 }
