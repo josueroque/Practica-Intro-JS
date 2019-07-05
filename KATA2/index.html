@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let mensaje =("Por seleccione el tipo de numero que desea ingresar" + '</br>' + "Escriba 1 para numero romano" + "</br>"
++ "Escriba 2 para numero arabe" + "</br>");
+let tipoNumero=prompt(mensaje);
+let numero=prompt("Ingrese el numero");
+const valoresRomanos={I : 1,V : 5,X : 10,L: 50,C : 100,D : 500,M : 1000};
+let numeroArabe=0;    
+let arreglo= new Array;
+let mensajeValidacion="ok";
+let longitud=0;
+function convertirArabes(numRomano){
+ 
+    arreglo=numRomano.split('');
+    if  (validarRomanos(numRomano)!=='ok'){
+        alert(mensajeValidacion);
+    } ;
+    for(let char in arreglo){
+       let indicePosterior= parseInt(char) +1;
+       longitud=arreglo.length;
+          
+        if (indicePosterior < longitud){
+         
+            if( valoresRomanos[arreglo[char]] < valoresRomanos[arreglo[indicePosterior]] ){
+                numeroArabe+=(valoresRomanos[arreglo[char]]*(-1));
+                 }
+            else {
+                numeroArabe+=valoresRomanos[arreglo[char]];
+            }
+        } else {
+            numeroArabe+=valoresRomanos[arreglo[char]];
+        }
+
+    }
+    return (numeroArabe); 
+}
+
+
+function validarRomanos(numRomano){
+
+   longitud=arreglo.length;
+    for(let char in arreglo){
+  
+        let indicePosterior2= parseInt(char) +1;
+   
+        if (indicePosterior2 < longitud){
+   alert('PRUEBA');
+            if(valoresRomanos[arreglo[char]]==='I'&&(!valoresRomanos[arreglo[indicePosterior2]]in newArray('V','X'))){
+                mensajeValidacion='I solo puede preceder a V o X, el numero romano proporcionado no es valido'
+                return mensajeValidacion;
+            }
+        }
+    }
+
+}
+
+    if (tipoNumero='1') {
+  
+     alert(  convertirArabes(numero));
+    }
+        else if (tipoNumero='2'){
+
+    }
+        else {
+        
+    }
+
+
+
+  
+    </script>
+</body>
+</html>
