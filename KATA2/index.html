@@ -22,6 +22,7 @@ function convertirArabes(numRomano){
     arreglo=numRomano.split('');
     if  (validarRomanos(numRomano)!=='ok'){
         alert(mensajeValidacion);
+     //   return;
     } ;
     for(let char in arreglo){
        let indicePosterior= parseInt(char) +1;
@@ -50,10 +51,13 @@ function validarRomanos(numRomano){
     for(let char in arreglo){
   
         let indicePosterior2= parseInt(char) +1;
-   
+     //   alert(valoresRomanos[arreglo[indicePosterior2]]);
+        let validarI=new Array();
+        validarI=['V','X'];
         if (indicePosterior2 < longitud){
-   alert('PRUEBA');
-            if(valoresRomanos[arreglo[char]]==='I'&&(!valoresRomanos[arreglo[indicePosterior2]]in newArray('V','X'))){
+       //     alert(validarI.indexOf(arreglo[indicePosterior2]) + ' ' +arreglo[indicePosterior2]  );
+  //     alert(!((validarI.indexOf(arreglo[indicePosterior2]))>=0));
+               if(arreglo[char]==='I'&& (!((validarI.indexOf(arreglo[indicePosterior2]))>=0))){
                 mensajeValidacion='I solo puede preceder a V o X, el numero romano proporcionado no es valido'
                 return mensajeValidacion;
             }
@@ -63,7 +67,7 @@ function validarRomanos(numRomano){
 }
 
     if (tipoNumero='1') {
-  
+     //   convertirArabes(numero);
      alert(  convertirArabes(numero));
     }
         else if (tipoNumero='2'){
