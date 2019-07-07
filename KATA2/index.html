@@ -22,7 +22,7 @@ function convertirArabes(numRomano){
  
     arreglo=numRomano.split('');
     if  (validarRomanos(numRomano)!=='ok'){
-        alert(mensajeValidacion);
+      //  alert(mensajeValidacion);
      //   return;
     } ;
     for(let char in arreglo){
@@ -75,48 +75,56 @@ function validarRomanos(numRomano){
                 mensajeValidacion='C solo puede preceder a D o M, el numero romano proporcionado no es valido'
             return mensajeValidacion;
             }
-        }
+        }   
+        
+    }
 //Reviso que I,X,C,M no se repitan mas de tres veces
 let charMap={};
-// let arregloContador=new Array( );
-// arregloContador=str.split('')
 let lon=arreglo.length;
-alert('lon'+ lon);
- for (let i=0; i<lon;i++){  
-    
-   
-        if (charMap.hasOwnProperty(arreglo[i])){
-
+    for (let i=0; i<lon;i++){  
+            if (charMap.hasOwnProperty(arreglo[i])){
                 charMap[arreglo[i]]++;
-
-        }
-        else {
-            charMap[arreglo[i]]=1;
+            }
+            else {
+                charMap[arreglo[i]]=1;
+            }
         
         }
-   
-    }
-   // alert(Object(charMap).keys);
+    for (let char in charMap){
+        alert('La clave es' + charMap[char]);
+            if (charMap[char]>3){
+                mensajeValidacion='Numero romano no valido, No se puede repetir ${char}  mas de tres veces'
+                return mensajeValidacion;
+                break;
+            }   
+ //Reviso que V,Ly D no se repitan mas de tres veces
+            if((char==='V'||char==='L'||char==='D')&& charMap[char]>1){
+                mensajeValidacion='Numero romano no valido, No se puede repetir ${char}  mas de una vez'
+                return mensajeValidacion;
+                break;
+            }
 
+    }     
+ 
+}
 
+function convertirRomanos(numero){
+   if (!isNaN(numero)){
+       mensajeValidacion='numero no valido';
+       return mensajeValidacion;
+   }
+   else {
 
-//Reviso que I,X,C,M no se repitan mas de tres veces
-
-
-        
-    }
-
+   }
+    
 }
 
     if (tipoNumero='1') {
-     //   convertirArabes(numero);
-     alert(  convertirArabes(numero));
+        convertirArabes(numero);
+     //alert(  convertirArabes(numero));
     }
         else if (tipoNumero='2'){
-
-    }
-        else {
-        
+       convertirRomanos(numero);
     }
 
 
