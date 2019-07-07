@@ -14,17 +14,16 @@ let tipoNumero=prompt(mensaje);
 let numero=prompt("Ingrese el numero");
 const valoresRomanos={I : 1,V : 5,X : 10,L: 50,C : 100,D : 500,M : 1000};
 let numeroArabe=0;    
+let numeroRomano='';
 let arreglo= new Array;
-let mensajeValidacion="ok";
+let mensajeValidacion='ok';
 let longitud=0;
+
 
 function convertirArabes(numRomano){
  
     arreglo=numRomano.split('');
-    if  (validarRomanos(numRomano)!=='ok'){
-      //  alert(mensajeValidacion);
-     //   return;
-    } ;
+
     for(let char in arreglo){
        let indicePosterior= parseInt(char) +1;
        longitud=arreglo.length;
@@ -45,7 +44,6 @@ function convertirArabes(numRomano){
     return (numeroArabe); 
 }
 
-
 function validarRomanos(numRomano){
 
    longitud=arreglo.length;
@@ -55,9 +53,9 @@ function validarRomanos(numRomano){
         let validarI=new Array();
         let validarX=new Array();
         let validarC=new Array();
-        validarI=['V','X'];
-        validarX=['L','C'];
-        validarC=['D','M'];
+        validarI=['V','X','I'];
+        validarX=['L','C','X'];
+        validarC=['D','M','C'];
 
         if (indicePosterior2 < longitud){
   //Valido I
@@ -91,15 +89,15 @@ let lon=arreglo.length;
         
         }
     for (let char in charMap){
-        alert('La clave es' + charMap[char]);
+ 
             if (charMap[char]>3){
-                mensajeValidacion='Numero romano no valido, No se puede repetir ${char}  mas de tres veces'
+                mensajeValidacion='Numero romano no valido, No se puede repetir '+ char +' mas de tres veces'
                 return mensajeValidacion;
                 break;
             }   
  //Reviso que V,Ly D no se repitan mas de tres veces
             if((char==='V'||char==='L'||char==='D')&& charMap[char]>1){
-                mensajeValidacion='Numero romano no valido, No se puede repetir ${char}  mas de una vez'
+                mensajeValidacion='Numero romano no valido, No se puede repetir '+ char +' mas de una vez'
                 return mensajeValidacion;
                 break;
             }
@@ -109,22 +107,60 @@ let lon=arreglo.length;
 }
 
 function convertirRomanos(numero){
-   if (!isNaN(numero)){
+   if (isNaN(numero) || parseInt(numero)>3999 || parseInt(numero)<1 ){
        mensajeValidacion='numero no valido';
+       alert('no acepta el numero ')//) + (!isNaN(numero))
        return mensajeValidacion;
+
    }
    else {
+ //Agrego los miles
+
+        let miles=Math.trunc((parseInt(numero)/1000));
+        let residuo=(parseInt(numero)%1000);
+        //alert (miles);
+        for (let i=1;i<=miles;i++){
+            numeroRomano+='M';
+        }
+  //Agrego los centenares
+  let centenares=Math.trunc((parseInt(residuo)/100));
+  residuo==(parseInt(residuo)%100);
+    
+            if (centenares===9){
+             numeroRomano+='CM';
+
+            }
+            else if (centenares>=5){
+                numeroRomano+='D';
+
+            }
+            else if (centenares=4){
+                numeroRomano+='CD';
+
+            }
+            else if (centenares<=3){
+                for (let j=0;j<centenares;j++){
+                numeroRomano+='C';
+                }
+            }
 
    }
-    
+    return numeroRomano
 }
 
-    if (tipoNumero='1') {
-        convertirArabes(numero);
-     //alert(  convertirArabes(numero));
+    if (tipoNumero=='1') {
+        if  (validarRomanos(numero)!=='ok'){
+            alert(mensajeValidacion);
+        
+        }
+        else{
+           alert(  convertirArabes(numero));
+        }
+      //  alert ('tipo numero 1 ' + tipoNumero);
     }
-        else if (tipoNumero='2'){
-       convertirRomanos(numero);
+    else if (tipoNumero='2'){
+    alert(   convertirRomanos(numero));
+       //alert ('tipo numero 2 ' + tipoNumero);
     }
 
 
