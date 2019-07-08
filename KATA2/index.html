@@ -70,7 +70,7 @@ function validarRomanos(numRomano){
             }
   //Valido C            
   if(arreglo[char]==='C'&& (!((validarC.indexOf(arreglo[indicePosterior2]))>=0))){
-                mensajeValidacion='C solo puede preceder a D o M, el numero romano proporcionado no es valido'
+            mensajeValidacion='C solo puede preceder a D o M, el numero romano proporcionado no es valido'
             return mensajeValidacion;
             }
         }   
@@ -124,23 +124,72 @@ function convertirRomanos(numero){
         }
   //Agrego los centenares
   let centenares=Math.trunc((parseInt(residuo)/100));
-  residuo==(parseInt(residuo)%100);
-    
+  residuo=(parseInt(residuo)%100);
+    //alert('centenares ' + centenares);
             if (centenares===9){
              numeroRomano+='CM';
 
             }
             else if (centenares>=5){
                 numeroRomano+='D';
-
+                for (let j=0;j<(centenares-5);j++){
+                    numeroRomano+='C';
+                }
             }
-            else if (centenares=4){
+            else if (centenares===4){
                 numeroRomano+='CD';
 
             }
             else if (centenares<=3){
                 for (let j=0;j<centenares;j++){
                 numeroRomano+='C';
+                }
+            }
+//Agrego decenas
+let decenas=Math.trunc((parseInt(residuo)/10));
+  residuo=(parseInt(residuo)%10);
+    
+            if (decenas===9){
+             numeroRomano+='XC';
+
+            }
+            else if (decenas>=5){
+                numeroRomano+='L';
+                for (let k=0;k<(decenas-5);k++){
+                    numeroRomano+='X';
+                }
+            }
+            else if (decenas===4){
+                numeroRomano+='XL';
+
+            }
+            else if (decenas<=3){
+                for (let k=0;k<decenas;k++){
+                    numeroRomano+='X';
+                }
+            }
+
+//Agrego unidades
+let unidades=Math.trunc((parseInt(residuo)/1));
+  residuo=(parseInt(residuo)%1);
+    
+            if (unidades===9){
+             numeroRomano+='IX';
+
+            }
+            else if (unidades>=5){
+                numeroRomano+='V';
+                for (let l=0;l<(unidades-5);l++){
+                    numeroRomano+='I';
+                }
+            }
+            else if (unidades===4){
+                numeroRomano+='IV';
+
+            }
+            else if (unidades<=3){
+                for (let l=0;l<unidades;l++){
+                    numeroRomano+='I';
                 }
             }
 
