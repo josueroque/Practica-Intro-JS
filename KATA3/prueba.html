@@ -8,67 +8,201 @@
 </head>
 <body>
 <script>
-let jugador1='2H 2D 2S 2C 3D';  
+let jugador1='2H 2D 2S 3C 3D';  
 //let jugador1='2H 3D 5S 9C KD';
 let jugador2='2C 3H 4S 8C AH';
 
-let manoJugador1=determinarMano(jugador1.replace(/\s+/g, ''));
+//let manoJugador1=determinarMano(jugador1.replace(/\s+/g, ''));
 //alert (manoJugador1);
 
-function determinarMano(mano){
-let manoJugador=new Array;
-manoJugador=mano.split('');
-let escalera =true;
-let valoresNumericos=new Array;
-let lon =manoJugador.length;
-    for (let i=0;i<=(lon-2);i+=2){
-        if (isNaN(manoJugador[i])){
-            switch(manoJugador[i]) {
-            case 'T':  
-                valoresNumericos.push(10); 
-                break;
-            case 'J':  
-                valoresNumericos.push(11); 
-                break;
-            case 'Q':  
-                valoresNumericos.push(12); 
-                break;
-            case 'K':  
-                valoresNumericos.push(13); 
-                break;
-            case 'A':  
-                valoresNumericos.push(14);
-                break; 
+class Mano{
+    constructor(mano){
+        this.cadenaMano='';    
+        this.manoJugador=new Array;
+        this.manoJugador=mano.split('');
+      //  this.Escalera =true;
+        this.valoresNumericos=new Array;
+        this.lon =this.manoJugador.length;
+        this.valoresRepetidos= {};
+        for (let i=0;i<=(this.lon-2);i+=2){
+            if (isNaN(this.manoJugador[i])){
+                switch(this.manoJugador[i]) {
+                case 'T':  
+                    this.valoresNumericos.push(10); 
+                    break;
+                case 'J':  
+                    this.valoresNumericos.push(11); 
+                    break;
+                case 'Q':  
+                    this.valoresNumericos.push(12); 
+                    break;
+                case 'K':  
+                    this.valoresNumericos.push(13); 
+                    break;
+                case 'A':  
+                    this.valoresNumericos.push(14);
+                    break; 
+                }
+            }else {
+                this.valoresNumericos.push(parseInt(this.manoJugador[i]));
             }
-        }else {
-            valoresNumericos.push(parseInt(manoJugador[i]));
-        }
+    
+         }  
+    
+    }
 
- }  
-//Escalera de color
-escalera=valoresNumericos.every( (val, i, arr) => val === arr[0] );
- if (escalera===true){
-     return 'escalera';
- }
-//Poker
-let valoresRepetidos= {};
-lon=valoresNumericos.length;
-for (let i=0; i<lon;i++){  
-            if (valoresRepetidos.hasOwnProperty(arreglo[i])){
-                valoresRepetidos[arreglo[i]]++;
+    get Escalera(){
+        return this.escalera();
+    }
+    escalera(){
+
+    }
+
+    get Poker(){
+        return this.poker();
+    };
+    
+    poker(){
+        this.lon=this.valoresNumericos.length;
+//        return true;
+        for (let i=0; i<this.lon;i++){ 
+
+            if (this.valoresRepetidos.hasOwnProperty(this.valoresNumericos[i])){
+                this.valoresRepetidos[this.valoresNumericos[i]]++;
             }
             else {
-                charMap[arreglo[i]]=1;
+                this.valoresRepetidos[this.valoresNumericos[i]]=1;
             }
-        
+                
         }
-alert (valoresRepetidos[0]);
+ 
+     this.lon=this.valoresRepetidos.length;   
 
+        for (let valor in this.valoresRepetidos){
 
+            if (this.valoresRepetidos[valor]===4){
+                this.cadenaMano='Poker';
+                return true;
+            }
+        } 
+    
+        return false;
+    }
+
+    get Full(){
+        return this.full();
+    }
+
+    full(){
+    //Busco trio
+        for (let valor in this.valoresRepetidos){
+            let comprueboTrio=false;
+            if (this.valoresRepetidos[valor]===3){
+                this.comprueboTrio= true;
+                break;
+            }
+        }         
+    //Busco par
+        for (let valor in this.valoresRepetidos){
+            let comprueboPar=false;
+            if (this.valoresRepetidos[valor]===2){
+               this.comprueboPar= true;
+                break;
+            }
+        }         
+        if ((this.comprueboTrio===true)&& (this.comprueboPar===true)){
+            return true;
+            this.cadenaMano='Full'
+        }
+        else {
+            return false;
+        }
+    }
+    
+    get Color(){
+        return this.color();
+    }
+
+    color(){
+        if (this.valoresNumericos.every( (val, i, arr) => val === arr[0] )){
+            this.cadenaMano='Color';
+            return true;
+        }
+        else      {
+            return false;    
+        }  
+    }
+
+}
+
+let manoJugador1=new Mano(jugador1.replace(/\s+/g, ''));
+
+alert(manoJugador1.Escalera);
+alert(manoJugador1.Poker);
+alert(manoJugador1.Full);
+
+// function determinarMano(mano){
+// let cadenaMano='';    
+// let manoJugador=new Array;
+// manoJugador=mano.split('');
+// let escalera =true;
+// let valoresNumericos=new Array;
+// let lon =manoJugador.length;
+//     for (let i=0;i<=(lon-2);i+=2){
+//         if (isNaN(manoJugador[i])){
+//             switch(manoJugador[i]) {
+//             case 'T':  
+//                 valoresNumericos.push(10); 
+//                 break;
+//             case 'J':  
+//                 valoresNumericos.push(11); 
+//                 break;
+//             case 'Q':  
+//                 valoresNumericos.push(12); 
+//                 break;
+//             case 'K':  
+//                 valoresNumericos.push(13); 
+//                 break;
+//             case 'A':  
+//                 valoresNumericos.push(14);
+//                 break; 
+//             }
+//         }else {
+//             valoresNumericos.push(parseInt(manoJugador[i]));
+//         }
+
+//      }  
+// //Escalera de color
+// escalera=valoresNumericos.every( (val, i, arr) => val === arr[0] );
+//  if (escalera===true){
+//     cadenaMano='Escalera de Color';
+//      return cadenaMano;
+//  }
+// //Poker
+// let valoresRepetidos= {};
+// lon=valoresNumericos.length;
+//     for (let i=0; i<lon;i++){ 
+// //        alert(valoresNumericos[i]+ ' ' +i); 
+//         if (valoresRepetidos.hasOwnProperty(valoresNumericos[i])){
+//             valoresRepetidos[valoresNumericos[i]]++;
+//         }
+//         else {
+//             valoresRepetidos[valoresNumericos[i]]=1;
+//         }
+            
+//     }
+//  lon=valoresRepetidos.length;   
+//     for (let valor in valoresRepetidos){
+//         if (valoresRepetidos[valor]===4){
+//             cadenaMano='Poker';
+//             return cadenaMano;
+//             break;
+//         }
+//     } 
 
 
     
-}
+// }
 
 
 
