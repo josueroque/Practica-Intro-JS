@@ -1,6 +1,7 @@
 export default class Mano{
     constructor(mano){
-        this.cadenaMano='';    
+        this.cadenaMano='';   
+       // this.determinarMano(); 
         this.manoJugador=new Array;
         this.manoJugador=mano.split('');
       //  this.Escalera =true;
@@ -62,7 +63,7 @@ export default class Mano{
         }
         else{
           //  alert(this.manoJugador[palo]+' '+ this.manoJugador[parseInt(palo)+2]+' '+palo );
-            this.mismoPalo=true;
+            this.mismoPalo=false;
            //            break;
         } 
 
@@ -76,7 +77,7 @@ export default class Mano{
     }
     escaleraColor(){
         if (this.comprobarConsecutivos()===true && this.comprobarMismoPalo()===true){
-            this.cadenaMano='Escalera';
+            this.cadenaMano='Escalera de Color';
             return true;
         }
         else {
@@ -180,12 +181,82 @@ export default class Mano{
     trio(){
         for (let valor in this.valoresRepetidos){
           //  let comprueboTrio=false;
-          this.cadenaMano="Trio"
+          
             if (this.valoresRepetidos[valor]===3){
+                this.cadenaMano="Trio"
                 return true;
                 //break;
             }
         }    
     }
+
+    get DoblesParejas(){
+        return this.doblesParejas();
+    }
+
+    doblesParejas(){
+        let buscoDoble=0;
+        for (let valor in this.valoresRepetidos){
+            if (this.valoresRepetidos[valor]===2){
+                buscoDoble+=1;
+            }
+        }
+        if (this.buscoDoble===2){
+           this.cadenaMano='Dobles Parejas';
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    get Parejas(){
+        return this.Parejas();
+    }
+
+    parejas(){
+        this.buscoPar=0;
+        for (let valor2 in this.valoresRepetidos){
+            if (parseInt(this.valoresRepetidos[valor2])===2){
+                this.buscoPar++;
+            }
+        }
+
+        if (this.buscoPar===1){
+           this.cadenaMano='Parejas';
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
+    get CartaMasAlta(){
+        return this.cartaMasAlta();
+    }
+
+    cartaMasAlta(){
+        let buscoMasAlta=0;
+        for (let num in this.valoresNumericos){
+            if(parseInt(num)===0){
+                this.buscoMasAlta=this.valoresNumericos[0];
+            }
+            else {
+               // console.log(this.valoresNumericos[num]+' '+ this.buscoMasAlta);
+                if(this.valoresNumericos[num]>this.buscoMasAlta){
+                   this.buscoMasAlta= this.valoresNumericos[num];
+                }
+            }
+        }
+        if (this.cadenaMano===''){
+            this.cadenaMano='Carta Mas Alta'
+        }
+      //  console.log(this.buscoMasAlta);
+        return this.buscoMasAlta;
+
+    }
+    
+    
 
 }
