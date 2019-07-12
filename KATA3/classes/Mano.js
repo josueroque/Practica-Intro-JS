@@ -10,6 +10,10 @@ export default class Mano{
         this.consecutivos=false;
         this.lon =this.manoJugador.length;
         this.valoresRepetidos= {};
+        this.valorPoker=0;
+        this.valorFullTrio=0;
+        this.valorFullPareja=0;
+        this.valorTrioMasAlto=0;
         for (let i=0;i<=(this.lon-2);i+=2){
             if (isNaN(this.manoJugador[i])){
                 switch(this.manoJugador[i]) {
@@ -34,7 +38,18 @@ export default class Mano{
             }
     
          }  
-
+         this.lon=this.valoresNumericos.length;
+         //        return true;
+                 for (let i=0; i<this.lon;i++){ 
+         
+                     if (this.valoresRepetidos.hasOwnProperty(this.valoresNumericos[i])){
+                         this.valoresRepetidos[this.valoresNumericos[i]]++;
+                     }
+                     else {
+                         this.valoresRepetidos[this.valoresNumericos[i]]=1;
+                     }
+                         
+                 }
     }
 
     comprobarConsecutivos(){
@@ -56,15 +71,14 @@ export default class Mano{
     comprobarMismoPalo(){
     for(let palo=1; palo<=(this.manoJugador.length-3);palo+=2){
             
-     //   alert(this.manoJugador[palo]+' '+ this.manoJugador[parseInt(palo)+2]+' '+palo );
-             //alert(this.manoJugador);  
+   //    console.log( this.manoJugador[palo] + ' '+this.manoJugador[parseInt(palo)+2]);
         if (this.manoJugador[palo]===this.manoJugador[parseInt(palo)+2]){
             this.mismoPalo=true;
         }
         else{
-          //  alert(this.manoJugador[palo]+' '+ this.manoJugador[parseInt(palo)+2]+' '+palo );
+
             this.mismoPalo=false;
-           //            break;
+            break;
         } 
 
             
@@ -88,26 +102,12 @@ export default class Mano{
     get Poker(){
         return this.poker();
     };
-    
     poker(){
-        this.lon=this.valoresNumericos.length;
-//        return true;
-        for (let i=0; i<this.lon;i++){ 
-
-            if (this.valoresRepetidos.hasOwnProperty(this.valoresNumericos[i])){
-                this.valoresRepetidos[this.valoresNumericos[i]]++;
-            }
-            else {
-                this.valoresRepetidos[this.valoresNumericos[i]]=1;
-            }
-                
-        }
- 
-     this.lon=this.valoresRepetidos.length;   
 
         for (let valor in this.valoresRepetidos){
 
             if (this.valoresRepetidos[valor]===4){
+                this.valorPoker=valor;
                 this.cadenaMano='Poker';
                 return true;
             }
@@ -116,24 +116,34 @@ export default class Mano{
         return false;
     }
 
+
+
     get Full(){
         return this.full();
     }
 
     full(){
+
+ 
+
     //Busco trio
         for (let valor in this.valoresRepetidos){
-            let comprueboTrio=false;
+            this.comprueboTrio=false;
             if (this.valoresRepetidos[valor]===3){
                 this.comprueboTrio= true;
+                this.valorFullTrio=valor;
                 break;
             }
-        }         
+        }     
+        //console.log(this.comprueboTrio);    
     //Busco par
+
         for (let valor in this.valoresRepetidos){
-            let comprueboPar=false;
+            this.comprueboPar=false;
+            
             if (this.valoresRepetidos[valor]===2){
                this.comprueboPar= true;
+               this.valorFullPareja=valor;
                 break;
             }
         }         
@@ -184,6 +194,7 @@ export default class Mano{
           
             if (this.valoresRepetidos[valor]===3){
                 this.cadenaMano="Trio"
+                this.valorTrioMasAlto =valor;
                 return true;
                 //break;
             }
@@ -258,5 +269,4 @@ export default class Mano{
     }
     
     
-
 }
