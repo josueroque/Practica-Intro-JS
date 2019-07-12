@@ -14,6 +14,10 @@ export default class Mano{
         this.valorFullTrio=0;
         this.valorFullPareja=0;
         this.valorTrioMasAlto=0;
+        this.valorDoblePareja1=0;
+        this.valorDoblePareja2=0;
+        this.valorPareja=0;
+
         for (let i=0;i<=(this.lon-2);i+=2){
             if (isNaN(this.manoJugador[i])){
                 switch(this.manoJugador[i]) {
@@ -53,6 +57,7 @@ export default class Mano{
     }
 
     comprobarConsecutivos(){
+        this.valoresNumericos.sort();
         for (let valor in this.valoresNumericos){
            if (valor<4){
              //  alert((parseInt(this.valoresNumericos[parseInt(valor)+1])-1));
@@ -206,10 +211,16 @@ export default class Mano{
     }
 
     doblesParejas(){
-        let buscoDoble=0;
+        this.buscoDoble=0;
         for (let valor in this.valoresRepetidos){
             if (this.valoresRepetidos[valor]===2){
-                buscoDoble+=1;
+                this.buscoDoble+=1;
+                if (this.buscoDoble===1){
+                    this.valorDoblePareja1=valor;    
+                }
+                else if (this.buscoDoble===2){
+                    this.valorDoblePareja2=valor; 
+                }
             }
         }
         if (this.buscoDoble===2){
@@ -229,6 +240,7 @@ export default class Mano{
         this.buscoPar=0;
         for (let valor2 in this.valoresRepetidos){
             if (parseInt(this.valoresRepetidos[valor2])===2){
+                this.valorPareja=valor2;
                 this.buscoPar++;
             }
         }
@@ -267,6 +279,5 @@ export default class Mano{
         return this.buscoMasAlta;
 
     }
-    
-    
+        
 }
