@@ -1,10 +1,10 @@
-import Mano from './classes/Mano.js';
+import Mano from './classes/Mano.mjs';
 let masAltaJ1=0;
 let masAltaJ2=0;
 
 //Introduzca aqui los valores para probar
 let jugador1='2H 2D 5S 9C KD'; 
-let jugador2='2C 3H 5C 9S KH';  
+let jugador2='3C 3H 5C 5S 3H';  
 
 const importanciaMano={'Escalera de Color':9,
 'Poker':8,
@@ -67,7 +67,6 @@ determinarGanador();
 }
 
 function determinarGanador(){
-   
     if (importanciaMano[manoJugador1.cadenaMano]>importanciaMano[manoJugador2.cadenaMano]){
         console.log('Jugador 1 gana '+manoJugador1.cadenaMano);
     }
@@ -149,7 +148,7 @@ function determinarGanador(){
             desempatar();
         }
     }
-
+//Desempato parejas
     else if (manoJugador1.cadenaMano==='Parejas' && manoJugador2.cadenaMano==='Parejas'){
     
         if(manoJugador1.valorPareja>manoJugador2.valorPareja){

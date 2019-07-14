@@ -1,9 +1,9 @@
 //"Ingrese en la variable numero, el tipo de numero que desea ingresar Escriba 1 para numero romano, Escriba 2 para numero arabe"
  let tipoNumero='1';
- let numero='DX';
+ let numero='MMXIX';
  
 // let tipoNumero='2';
-// let numero='3999';
+// let numero='2019';
 
 const valoresRomanos={I : 1,V : 5,X : 10,L: 50,C : 100,D : 500,M : 1000};
 let numeroArabe=0;    
@@ -253,11 +253,11 @@ let unidades=Math.trunc((parseInt(residuo)/1));
         
         }
         else{
-           console.log(convertirArabes(numero));
+           console.log('El numero arabe equivalente de '+ numero +' es '+convertirArabes(numero));
         }
     }
     else if (tipoNumero='2'){
-    console.log(convertirRomanos(numero));
+    console.log('El numero romano equivalente de '+ numero +' es '+convertirRomanos(numero));
     }
 
 
